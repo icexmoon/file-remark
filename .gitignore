@@ -1,0 +1,8 @@
+*.config
+*.log
+*.db
+/tests/*
+/dist/*
+/build/*
+/src/file_remark_icexmoon.egg-info/*
+__pycache__/

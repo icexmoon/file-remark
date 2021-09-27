@@ -1,0 +1,9 @@
+-h --help 输出帮助信息
+-a --add 添加文件备注
+-f --file 指定文件或目录
+-r --remark 指定备注内容
+--remark_first (默认)，输出的结果中将有备注的文件先显示
+-l --remark_last 输出的结果中将有备注的文件最后显示
+-o --only_remark 输出的结果仅显示有备注的文件
+
+更多操作说明见 https://github.com/icexmoon/file-remark
