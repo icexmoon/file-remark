@@ -7,6 +7,11 @@ from file_remark.tools import Tools
 
 
 class Main:
+    '''程序的入口类'''
+    def __init__(self) -> None:
+        # 初始化数据库
+        db = MyDB()
+        
     def init_process(self):
         '''初始化程序'''
         choice = input('初始化程序将会丢失已添加的文件备注，是否继续（y/n）：')
@@ -14,13 +19,9 @@ class Main:
             print('终止初始化')
             return
         print('开始程序初始化')
-        print('正在删除数据库')
-        db_file = MyDB.get_db_file()
-        os.remove(db_file)
-        db:MyDB = MyDB()
-        db.conn.close()
         print('正在重建数据库')
-        db.init_db()
+        db:MyDB = MyDB()
+        db.reset_db()
         print('初始化结束')
 
     def set_print_mode(self, new_print_mode: int):

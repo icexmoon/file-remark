@@ -81,6 +81,14 @@ class MyDB:
         cursor.close()
         return result
 
+    def reset_db(self):
+        '''初始化数据库'''
+        self.conn.close()
+        db_file = self.get_db_file()
+        os.remove(db_file)
+        self.inited=False
+        self.__init__()
+
     def __del__(self):
         '''数据库对象注销时断开连接'''
         self.conn.close()

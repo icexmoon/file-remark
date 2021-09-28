@@ -2,6 +2,7 @@ import getopt
 import sys
 from .main import Main
 from .config import Config
+from .my_db import MyDB
 def getOptionVal(options, key, key2):
     for optKey, optVal in options:
         if optKey == key or optKey == key2:
