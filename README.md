@@ -1,6 +1,14 @@
 # file-remark
 Add a remark for the file in the OS.
 
+## 项目地址
+
+github: <https://github.com/icexmoon/file-remark>
+
+gitee: <https://gitee.com/icexmoon/file-remark>
+
+pypi: <https://pypi.org/project/file-remark-icexmoon/>
+
 ## 用途
 
 这是一个可以给系统中的文件或路径添加备注的小工具。
