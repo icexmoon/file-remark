@@ -12,14 +12,12 @@ def main():
     pass
     try:
         opts, args=getopt.gnu_getopt(sys.argv[1:],
-                            'ahf:r:lo',
-                            ['help','add','file=','remark=','remark_first','remark_last','only_remark'])
+                            'ahf:r:lov',
+                            ['help','add','file=','remark=','remark_first','remark_last','only_remark','version','init_process'])
     except getopt.GetoptError as e:
         print("获取参数信息出错，错误提示：", e.msg)
         return
     main_process = Main()
-    # if not opts:
-    #     main_process.list_remarks()
     for opt in opts:
         argKey = opt[0]
         argVal = opt[1]
@@ -42,6 +40,14 @@ def main():
             main_process.set_print_mode(Config.PRINT_REMARK_LAST)
         elif argKey == '--only_remark' or argKey=='-o':
             main_process.set_print_mode(Config.PRINT_ONLY_REMARK)
+        elif argKey == '--version' or argKey == '-v':
+            main_process.print_version()
+            return
+        elif argKey == '--init_process':
+            main_process.init_process()
+            return
+        else:
+            pass
     main_process.list_remarks()
 
 main()

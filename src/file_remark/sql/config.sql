@@ -1,0 +1,3 @@
+CREATE TABLE [config](
+  [name] VARCHAR(15) NOT NULL UNIQUE, 
+  [value] VARCHAR(50) NOT NULL);

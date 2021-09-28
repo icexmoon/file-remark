@@ -1,0 +1,6 @@
+CREATE TABLE [files](
+[name] VARCHAR(300) NOT NULL, 
+[path] VARCHAR(2000) NOT NULL UNIQUE, 
+[remark] VARCHAR(255) NOT NULL, 
+[add_time] DATETIME NOT NULL, 
+[modify_time] DATETIME NOT NULL);

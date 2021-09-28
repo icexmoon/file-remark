@@ -85,6 +85,27 @@ pyfr -af .\LICENSE -r 'this is a license for open source'
 
 > 目前只能添加备注，之后会增加修改备注和删除备注的功能。
 
+### 显示系统版本
+
+```shell
+pyfr -v
+```
+
+或
+
+```shell
+pyfr --version
+```
+
+### 初始化程序
+
+```shell
+pyfr --init_process
+```
+
+如果数据库损坏或遇到其它问题，可以使用此功能尝试重新初始化程序，但该操作将丢失已添加的所有数据。
+
 ## 更新日志
 
 - 0.0.1 基础版本。
+- 0.0.2 修改数据库表结构，添加显示版本功能。

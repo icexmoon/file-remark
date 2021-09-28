@@ -7,12 +7,36 @@ from file_remark.tools import Tools
 
 
 class Main:
+    def init_process(self):
+        '''初始化程序'''
+        choice = input('初始化程序将会丢失已添加的文件备注，是否继续（y/n）：')
+        if choice != 'y' and choice != 'Y':
+            print('终止初始化')
+            return
+        print('开始程序初始化')
+        print('正在删除数据库')
+        db_file = MyDB.get_db_file()
+        os.remove(db_file)
+        db:MyDB = MyDB()
+        db.conn.close()
+        print('正在重建数据库')
+        db.init_db()
+        print('初始化结束')
+
     def set_print_mode(self, new_print_mode: int):
         '''设置打印模式'''
         config: Config = Config()
         config.print_mode = new_print_mode
-        # print(config.print_mode)
-        # print(id(config))
+
+    def print_version(self):
+        '''打印程序版本信息'''
+        import pkg_resources
+        version = pkg_resources.get_distribution(
+            'file-remark-icexmoon').version
+        print('当前软件版本：{}'.format(version))
+        config: Config = Config()
+        print('数据库版本：{}'.format(config.db_config['db_version']))
+        
 
     def print_help(self):
         config: Config = Config()

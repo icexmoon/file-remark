@@ -5,5 +5,7 @@
 --remark_first (默认)，输出的结果中将有备注的文件先显示
 -l --remark_last 输出的结果中将有备注的文件最后显示
 -o --only_remark 输出的结果仅显示有备注的文件
+-v --version 显示程序版本信息
+--init_process 初始化程序
 
 更多操作说明见 https://github.com/icexmoon/file-remark
