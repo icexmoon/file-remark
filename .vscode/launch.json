@@ -9,8 +9,8 @@
             "type": "python",
             "request": "launch",
             // "program": "${file}",
-            "program": "${workspaceFolder}\\tests\\test.py",
-            "cwd": "${workspaceFolder}\\tests",
+            "program": "${workspaceFolder}/tests/test.py",
+            "cwd": "${workspaceFolder}/tests",
             "console": "integratedTerminal"
         }
     ]

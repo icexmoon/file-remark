@@ -17,6 +17,7 @@ pypi: <https://pypi.org/project/file-remark-icexmoon/>
 
 - 使用绝对路径来匹配文件。
 - 独立数据存储，不依赖于文件的meta信息。
+- 本应用使用Python编写，适用于Windows和Linux。
 
 缺点有：
 
@@ -30,11 +31,25 @@ pypi: <https://pypi.org/project/file-remark-icexmoon/>
 
 ## 使用说明
 
-### 安装
+### 安装（Windows）
 
 ```shell
 pip install file-remark-icexmoon
 ```
+
+### 安装（Linux）
+
+```shell
+[icexmoon@icexmoon bin]$ python -m pip install file-remark-icexmoon --user
+[icexmoon@icexmoon file_remark]$ pyfr
+-bash: /usr/local/bin/pyfr: 没有那个文件或目录
+[icexmoon@icexmoon file_remark]$ sudo ln -s /home/icexmoon/.local/bin/pyfr /usr/local/bin/pyfr
+[icexmoon@icexmoon file_remark]$ pyfr -v
+当前软件版本：0.0.4
+数据库版本：3
+```
+
+> 因为Linux下会有权限问题，所以最好使用`pip xxx --user`的方式仅为当前用户安装。此外通过这种方式安装后会将短命令`pyfr`创建到`/home/icexmoon/.local/bin`目录下，该目录一般不会列入`PATH`，所以还需要创建软链接。
 
 ### 更新
 
