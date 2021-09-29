@@ -54,19 +54,21 @@ pyfr
 
 ```shell
 ❯ pyfr
-LICENSE [this is a license for open source]
-pyproject.toml [this is a test comment]
-src [this is a source directory]
-.git
-.vscode
-dist
-README.md
-setup.cfg
-setup.py
-tests
+- LICENSE [this is a license for open source]
+- pyproject.toml [this is a test comment]
+d src [this is a source directory]
+- .git
+- .vscode
+d dist
+- README.md
+- setup.cfg
+- setup.py
+d tests
 ```
 
 其中`[xxx]`是添加的备注信息。默认先显示有备注的文件，再显示其他的，但也可以使用其它参数修改显示结果。
+
+开头的`d`或`-`是用来区分目录还是文件，这里使用的是Linux中的风格。
 
 ### 修改显示结果
 
@@ -118,3 +120,4 @@ pyfr --init_process
 - 0.0.1 基础版本。
 - 0.0.2 修改数据库表结构，添加显示版本功能。
 - 0.0.3 修复程序初始化会出错的bug。
+- 0.0.4 升级数据库到v3，输出信息中添加标识区分文件和目录

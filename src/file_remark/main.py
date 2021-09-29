@@ -51,8 +51,6 @@ class Main:
         '''展示当前工作目录下设置了备注的文件'''
         # 获取当前工作目录下的所有文件和目录
         config: Config = Config()
-        # print(id(config))
-        # print(config.print_mode)
         names = os.listdir(os.getcwd())
         paths = []
         for name in names:
@@ -75,16 +73,29 @@ class Main:
             pass
 
     def __print_remarks(self, file_remarks):
-        # file_remarks = m_files.search_path(paths)
         for file_remark in file_remarks:
-            print("{} [{}]".format(file_remark['name'], file_remark['remark']))
+            flag = self.__get_flag_by_type(file_remark[MFiles.FIELD_TYPE])
+            print("{} {} [{}]".format(flag, file_remark['name'], file_remark['remark']))
+
+    def __get_flag_by_type(self, type):
+        if type == MFiles.TYPE_DIR:
+            return 'd'
+        else:
+            return '-'
+
+    def __get_flag_by_path(self, path):
+        if os.path.isdir(path):
+            return 'd'
+        else:
+            return '-'
 
     def __print_others(self, names, file_remarks, m_files):
         config = Config()
         for name in names:
             path = os.getcwd()+config.get_path_split()+name
             if not m_files.is_in_file_remarks(path, file_remarks):
-                print(name)
+                flag = self.__get_flag_by_path(path)
+                print('{} {}'.format(flag,name))
 
     def list_all(self):
         '''展示所有设置了备注的文件'''

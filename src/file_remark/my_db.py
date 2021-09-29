@@ -10,6 +10,7 @@ from file_remark.user_exception import UserException
 class MyDB:
     '''数据库类（单例）'''
     DB_FILE_NAME = 'my_db.db'
+    CURRENT_DB_VERSION = 3
     inited = False
 
     def __new__(cls) -> Any:
@@ -30,6 +31,7 @@ class MyDB:
             self.conn.row_factory = dict_factory
             # 将数据库中的配置数据写入config对象
             self.__load_config_from_db()
+            self.__update_db()
             MyDB.inited = True
 
     def get_db_file(self) -> str:
@@ -86,7 +88,7 @@ class MyDB:
         self.conn.close()
         db_file = self.get_db_file()
         os.remove(db_file)
-        self.inited=False
+        MyDB.inited=False
         self.__init__()
 
     def __del__(self):
@@ -110,6 +112,15 @@ class MyDB:
             sql_content = fopen.read()
         return sql_content
 
+    def __get_multi_sqls(self, file_name: str) -> list[str]:
+        '''从sql文件读取多条sql(以;分隔)
+        file_name: sql文件名
+        return 多条sql
+        '''
+        sql_content = self.__get_sql(file_name)
+        sqls = sql_content.split(';')
+        return sqls
+
     def __load_config_from_db(self) -> None:
         '''从数据库加载配置数据到config对象'''
         config: Config = Config()
@@ -117,3 +128,20 @@ class MyDB:
         db_configs = self.query(sql)
         for db_config in db_configs:
             config.set_db_config(db_config['name'], db_config['value'])
+
+    def __update_db(self):
+        '''更新数据库'''
+        config:Config = Config()
+        db_version = int(config.db_config['db_version'])
+        if db_version == 2:
+            sqls = self.__get_multi_sqls('v3')
+            for sql in sqls:
+                self.execute(sql)
+            # 重新加载数据库配置
+            self.__load_config_from_db()
+        # 验证更新后数据库版本是否已经是当前的版本
+        db_version = int(config.db_config['db_version'])
+        if db_version != MyDB.CURRENT_DB_VERSION:
+            raise UserException(UserException.CODE_DB, "数据库版本是当前最新版本，请尝试重置数据库。")
+    
+            
