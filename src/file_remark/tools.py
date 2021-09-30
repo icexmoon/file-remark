@@ -1,4 +1,5 @@
 import os
+import time
 
 
 class Tools:
@@ -9,3 +10,8 @@ class Tools:
         '''
         abs_path = os.path.abspath(path)
         return abs_path
+
+    @classmethod
+    def get_now_time_str(cls)->str:
+        '''获取当前时间字符串'''
+        return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())

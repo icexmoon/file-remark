@@ -2,6 +2,7 @@
 *.log
 *.db
 /tests/*
+!/tests/test.py
 /dist/*
 /build/*
 /src/file_remark_icexmoon.egg-info/*

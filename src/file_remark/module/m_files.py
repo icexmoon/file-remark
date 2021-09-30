@@ -1,24 +1,41 @@
 import os
 import time
 from file_remark.my_db import MyDB
+from file_remark.tools import Tools
 
 
 class MFiles:
     '''files表module'''
     TYPE_FILE = 1  # 文件
     TYPE_DIR = 2  # 目录
+    # files表字段
+    FIELD_NAME = 'name'
+    FIELD_PATH = 'path'
+    FIELD_REMARK = 'remark'
+    FIELD_ADD_TIME = 'add_time'
+    FIELD_MODIFY_TIME = 'modify_time'
     FIELD_TYPE = 'type'
 
     def add_remark(self, file_path: str, remark: str):
         '''给文件添加备注'''
         db = MyDB()
         file_name = os.path.basename(file_path)
-        now_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+        now_time = Tools.get_now_time_str()
         type = self.__get_type_by_path(file_path)
         sql = '''
         INSERT INTO files('name','path','remark','add_time','modify_time','type') 
         VALUES('{}','{}','{}','{}','{}','{}')
         '''.format(file_name, file_path, remark, now_time, now_time, type)
+        db.execute(sql)
+
+    def modify_remark(self, file_path:str, remark:str)->None:
+        '''修改备注'''
+        db = MyDB()
+        now_time = Tools.get_now_time_str()
+        sql = '''
+        UPDATE files SET remark='{}',modify_time='{}'
+        WHERE path='{}'
+        '''.format(remark, now_time, file_path)
         db.execute(sql)
 
     def search_path(self, paths: list[str]) -> list:
@@ -42,6 +59,17 @@ class MFiles:
         '''.format(path)
         file_info = db.query_one(sql)
         return file_info
+
+    def get_all_file_remarks(self)->list:
+        '''获取所有已添加的备注
+        return 已添加的备注信息
+        '''
+        db = MyDB()
+        sql = '''
+        SELECT * FROM files
+        '''
+        file_remarks = db.query(sql)
+        return file_remarks
 
     def is_in_file_remarks(self, path: str, file_remarks: list):
         '''指定的路径是否在file_remarks数据集中'''

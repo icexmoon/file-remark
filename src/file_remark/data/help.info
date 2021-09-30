@@ -1,5 +1,6 @@
 -h --help 输出帮助信息
 -a --add 添加文件备注
+-m --modify 修改文件备注
 -f --file 指定文件或目录
 -r --remark 指定备注内容
 --remark_first (默认)，输出的结果中将有备注的文件先显示
