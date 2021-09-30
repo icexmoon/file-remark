@@ -2,6 +2,7 @@ class UserException (Exception):
     CODE_NO_PATH = 1  # 文件或目录不存在
     CODE_DB = 2  # 数据库错误
     CODE_NO_REMARK = 3 # 备注信息不存在
+    CODE_NO_PARAM = 4 # 缺少参数
 
     def __init__(self, errorCode: int, errorMsg: str = ""):
         super().__init__()

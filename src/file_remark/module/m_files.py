@@ -28,7 +28,7 @@ class MFiles:
         '''.format(file_name, file_path, remark, now_time, now_time, type)
         db.execute(sql)
 
-    def modify_remark(self, file_path:str, remark:str)->None:
+    def modify_remark(self, file_path: str, remark: str) -> None:
         '''修改备注'''
         db = MyDB()
         now_time = Tools.get_now_time_str()
@@ -60,7 +60,7 @@ class MFiles:
         file_info = db.query_one(sql)
         return file_info
 
-    def get_all_file_remarks(self)->list:
+    def get_all_file_remarks(self) -> list:
         '''获取所有已添加的备注
         return 已添加的备注信息
         '''
@@ -77,6 +77,26 @@ class MFiles:
             if path == file_remark['path']:
                 return True
         return False
+
+    def delete_remark(self, path: str) -> None:
+        '''删除文件备注
+        path 文件或目录路径
+        '''
+        sql = '''
+        DELETE FROM files
+        WHERE {}='{}'
+        '''.format(MFiles.FIELD_PATH, path)
+        db = MyDB()
+        db.execute(sql)
+
+    def delete_all_remarks(self) -> None:
+        '''删除全部文件备注
+        '''
+        sql = '''
+        DELETE FROM files
+        '''
+        db = MyDB()
+        db.execute(sql)
 
     def __get_type_by_path(self, path: str) -> int:
         '''根据给定路径获取类型

@@ -111,6 +111,8 @@ class Main:
 
     def add_remark(self, file_path: str, remark: str):
         '''给文件添加备注'''
+        self.__check_param(file_path, '--file')
+        self.__check_param(remark, '--remark')
         file_path = self.__check_path_exist(file_path)
         m_files = MFiles()
         file_remark = m_files.get_file_remark(file_path)
@@ -120,10 +122,18 @@ class Main:
             print('文件{}的备注已经存在，不能重复添加！'.format(os.path.basename(file_path)))
 
     def remove_remark(self, file_path):
-        '''删除文件备注'''
+        '''删除文件备注
+        file_path 文件或目录路径
+        '''
+        self.__check_param(file_path, '--file')
+        file_path = self.__check_path_exist(file_path)
+        m_files = MFiles()
+        m_files.delete_remark(file_path)
 
     def modify_remark(self, file_path: str, remark: str) -> None:
         '''修改文件备注'''
+        self.__check_param(file_path, '--file')
+        self.__check_param(remark, '--remark')
         file_path = self.__check_path_exist(file_path)
         m_files = MFiles()
         file_remark = m_files.get_file_remark(file_path)
@@ -135,6 +145,11 @@ class Main:
 
     def remove_all(self):
         '''删除全部备注信息'''
+        choice = input('是否要删除全部的文件备注？（y/n）：')
+        if choice != 'y' and choice != 'Y':
+            return
+        m_files = MFiles()
+        m_files.delete_all_remarks()
 
     def __check_path_exist(self, file_path: str) -> str:
         '''检查路径是否存在
@@ -146,3 +161,12 @@ class Main:
             error_msg = '文件或目录{}不存在，不能添加备注！'.format(file_path)
             raise UserException(UserException.CODE_NO_PATH, error_msg)
         return file_path
+
+    def __check_param(self, param, param_name):
+        '''检查参数是否存在
+        param 参数
+        param_name 参数名称
+        '''
+        if param is None or len(param) == 0:
+            error_msg = '缺少参数{}'.format(param_name)
+            raise UserException(UserException.CODE_NO_PARAM, error_msg)
