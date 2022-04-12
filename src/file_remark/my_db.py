@@ -94,7 +94,7 @@ class MyDB:
     def __del__(self):
         '''数据库对象注销时断开连接'''
         self.conn.close()
-        super().__del__()
+        # super().__del__()
 
     def __get_sql(self, file_name: str) -> str:
         '''从sql文件获取sql
